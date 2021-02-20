@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app } from "electron";
 import { appManager } from "@/electron/AppManager";
 import { TrayMenu } from "@/electron/TrayMenu";
 import { AlarmWindow } from "@/electron/AlarmWindow";
@@ -29,3 +29,8 @@ app.on("window-all-closed", () => {
 if (app.dock) {
   app.dock.hide();
 }
+
+store.subscribe(() => {
+  console.log("ATUALIZOU");
+  console.log(store.getState());
+});

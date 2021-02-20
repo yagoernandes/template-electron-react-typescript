@@ -31,6 +31,12 @@ const reducer: Reducer<RepositoriesState> = (state = INITIAL_STATE, action) => {
         error: payload,
         data: [],
       };
+    case "testando":
+      return {
+        ...state,
+        data: [{ id: 42, name: new Date().toUTCString() }],
+        loading: false,
+      };
     default:
       return state;
   }

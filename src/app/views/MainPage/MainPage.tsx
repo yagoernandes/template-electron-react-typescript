@@ -1,7 +1,7 @@
 import React from 'react';
 import './MainPage.scss';
 import Toggle from '../../components/Toggle/Toggle';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 type Alarm = {
   label: string;
@@ -11,6 +11,7 @@ type Alarm = {
 
 const MainPage = () => {
   const state = useSelector(state=>state)
+  const dispatch = useDispatch()
   const mockAlarms = [
     {
       label: 'Alarm',
@@ -52,6 +53,10 @@ const MainPage = () => {
           }
         </ul>
         <span>{JSON.stringify(state)}</span>
+        <button onClick={()=>dispatch({
+          type:'testando',
+          payload: 'teste'
+        })}>Dispatch</button>
     </div>
   );
 }
