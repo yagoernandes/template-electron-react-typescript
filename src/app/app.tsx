@@ -1,11 +1,16 @@
 import React from 'react';
-// import 'app.scss'; // New import!!
+import './app.scss';
+import MainPage from './views/MainPage/MainPage';
+import { Provider } from 'react-redux';
+import store from '../store';
 
 const App = () => {
   return (
-    <div className="app">
-      <h1>I'm React running in Electron App!!</h1>
-    </div>
+    <Provider store={store}>
+      <div className="app">
+        <MainPage />
+      </div>
+    </Provider>
   );
 }
 

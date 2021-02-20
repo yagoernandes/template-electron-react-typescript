@@ -1,20 +1,31 @@
-import { app, BrowserWindow } from 'electron';
-import isDev from 'electron-is-dev'; // New Import
+import { app, BrowserWindow } from "electron";
+import { appManager } from "@/electron/AppManager";
+import { TrayMenu } from "@/electron/TrayMenu";
+import { AlarmWindow } from "@/electron/AlarmWindow";
+import store from "./store";
 
-const createWindow = (): void => {
-  let win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  });
-  console.log(isDev);
-  win.loadURL(
-    isDev
-      ? 'http://localhost:9000'
-      : `file://${app.getAppPath()}/index.html`,
-  );
+const appElements: any = {
+  tray: null,
+  windows: [],
+};
+
+app.on("ready", () => {
+  appElements.tray = new TrayMenu();
+  appManager.setWindow("AlarmWindow", new AlarmWindow());
+});
+
+/**
+ * Quando fechar tudo, sair do programa (mac)
+ */
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
+});
+
+/**
+ * Não exibir o programa na dock (do mac)
+ */
+if (app.dock) {
+  app.dock.hide();
 }
-
-app.on('ready', createWindow);
